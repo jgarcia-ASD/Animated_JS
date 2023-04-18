@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fundamentos</title>
+</head>
+<body>
+    <!--Espacio para dibujar-->
+    <canvas width="600" height="600"></canvas>
+
+    <!--Definimos variables para empezar a dibujar-->
+    <script>
+        //VARIABLES
+        //Definamos una variable en js lo hacemos con let
+        let x = 5;
+
+        //Queremos saber cual es el año siguiente sin necesidad de volver a escribir el año solo hacemos
+        let year = 2023;
+        let nextyear = year + 1;
+
+        //No solo podemos guardar numeros en las variables tambien podemos guardar texto y tambien se pueden unir
+        let dinner = "pasta";
+        let sentence = "la noche de hoy la cena sera " + dinner;
+
+        //FUNCIONES
+        //Las usamos para almacenar acciones las podemos verificar desde consola en nuestra pagina
+        function Saludo(param){
+            console.log(param);
+        }
+        Saludo(sentence);
+
+        //podemos tambien volver resultados con return
+        function Suma(a, b){
+            return a + b;
+        }
+        let Resultado = Suma(5,2)
+        console.log("el resultado de la suma es " + Resultado)
+
+        //existen unas funciones llamadas funcion flecha
+        let multiplicacion = (a, b) => {
+            return a * b;
+        }
+
+        console.log("El resultado de la multiplicacion es " + multiplicacion (5,2))
+
+        //DIBUJEMOS
+        //definimos las variables del espacion en el cual vamos a dibujar
+        let canvas = document.querySelector("canvas")
+        //definimos en el contexto que deseemos dibujar en esta caso el dibujo va a sser 2d
+        let context = canvas.getContext('2d')
+
+        //le definimos la variable para ponerle un color
+        context.fillStyle = "blue";
+        //le pasamos cordenadas a nuestros dibujos
+        // context.fillRect(100, 100, 400, 400);
+
+        //queremos hacer otra cosa en nuestro mismo espacio de trabajo lo que hacemos es
+        //ancho de linea
+        context.lineWidth = 4;
+        //le decimos que haga una nueva figura
+        context.beginPath();
+        //le decimos que es un rectagunlo y le pasamos cordenadas 
+        context.rect(100,100,400,400);
+        //dibujar solo el contorno
+        context.stroke();
+
+        //hacemos una nueva figura
+        context.beginPath();
+        //hacemos un circulo que realmente es un arco que va x y el radio los angulos finales y los angulos iniciales los angulos estan en radianos no en grados
+        context.arc(300, 300, 100, 0, Math.PI * 2)
+        //dibujamos su linea
+        context.stroke();
+    </script>
+</body>
+</html>
