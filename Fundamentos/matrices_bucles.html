@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fundamentos</title>
+</head>
+<body>
+    <!--Espacio para dibujar-->
+    <canvas width="600" height="600"></canvas>
+
+    <!--Definimos variables para empezar a dibujar-->
+    <script>
+        //podemos tambien volver resultados con return
+        function Suma(a, b){
+            return a + b;
+        }
+        let Resultado = Suma(5,2)
+        console.log("el resultado de la suma es " + Resultado)
+
+        //existen unas funciones llamadas funcion flecha
+        let multiplicacion = (a, b) => {
+            return a * b;
+        }
+
+        console.log("El resultado de la multiplicacion es " + multiplicacion (5,2))
+
+        //DIBUJEMOS
+        //definimos las variables del espacion en el cual vamos a dibujar
+        let canvas = document.querySelector("canvas")
+        //definimos en el contexto que deseemos dibujar en esta caso el dibujo va a sser 2d
+        let context = canvas.getContext('2d')
+
+        //le definimos la variable para ponerle un color
+        context.fillStyle = "blue";
+        //le pasamos cordenadas a nuestros dibujos
+        // context.fillRect(100, 100, 400, 400);
+
+        //queremos hacer otra cosa en nuestro mismo espacio de trabajo lo que hacemos es
+        //ancho de linea
+        context.lineWidth = 4;
+        //le decimos que haga una nueva figura
+        context.beginPath();
+        //le decimos que es un rectagunlo y le pasamos cordenadas 
+        context.rect(100,100,400,400);
+        //dibujar solo el contorno
+        context.stroke();
+
+        //hacemos una nueva figura
+        context.beginPath();
+        //hacemos un circulo que realmente es un arco que va x y el radio los angulos finales y los angulos iniciales los angulos estan en radianos no en grados
+        context.arc(300, 300, 100, 0, Math.PI * 2)
+        //dibujamos su linea
+        context.stroke();
+
+        //ARRAYS
+        let years = [];
+        let menu = ["starter", "main", "dessert", "drinks", "sides"];
+
+        //BUCLES
+        /*este es un bucle q no nos sirve ya que si agrandan en array no nos mostrara el array completo
+        for (let i = 0; i < 4; i++) {
+            console.log(menu[i])
+        }
+        */
+
+        //la solucion para esto es
+        for (let i = 0; i < menu.length; i++) {
+            console.log(menu[i]);
+        }
+
+        //tambien los podemos usar para escribir dentro de lso arrays
+        for (let i = 0; i < 10; i++) {
+            years.push(2023 + i);
+        }
+        console.log(years);
+    </script>
+</body>
+</html>
