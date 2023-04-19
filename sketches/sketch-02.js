@@ -6,15 +6,6 @@ const settings = {
   dimensions: [ 1080, 1080 ]
 };
 
-//hacemos una funcion para convertir los radianes a grados y facilitarnos la codificacion
-const agrados = (grados) => {
-  return grados / 180 * Math.PI;
-}
-
-//hacemos una funcino para hacer lieneas de grosor aleatorio
-const lrandom = (min, max) => {
-  return Math.random() * (max - min) + min;
-}
 
 const sketch = () => {
   return ({ context, width, height }) => {
@@ -29,7 +20,7 @@ const sketch = () => {
     const h = height * 0.1;
     let x, y;
 
-    const num = 12;
+    const num = 40;
     const radio = width * 0.3;
 
     for (let i = 0; i < num; i++) {
@@ -43,12 +34,23 @@ const sketch = () => {
       context.save();
       context.translate(x, y);
       context.rotate(-angulo);
-      context.scale(random.range(1, 3), 1);
+      context.scale(random.range(0.3, 2), random.range(0.2, 0.5));
 
       context.beginPath();
-      context.rect(-w * 0.5, -h * 0.5, w, h);
+      context.rect(-w * 0.20, random.range(0, -h * 0.20), w, h);
       context.fill();
       //asi evitamos que se nos acumulen las tranformaciones
+      context.restore();
+
+      context.save();
+      context.translate(cx, cy);
+      context.rotate(-angulo)
+
+      context.lineWidth = random.range(5, 20);
+
+      context.beginPath();
+      context.arc(0, 0, radio * random.range(0.001, 1.5),slice * random.range(1, -8), slice * random.range(1, 5));
+      context.stroke();
       context.restore();
       
     }
