@@ -45,14 +45,14 @@
         //le decimos que es un rectagunlo y le pasamos cordenadas 
         context.rect(100,100,400,400);
         //dibujar solo el contorno
-        context.stroke();
+        //context.stroke();
 
         //hacemos una nueva figura
         context.beginPath();
         //hacemos un circulo que realmente es un arco que va x y el radio los angulos finales y los angulos iniciales los angulos estan en radianos no en grados
         context.arc(300, 300, 100, 0, Math.PI * 2)
         //dibujamos su linea
-        context.stroke();
+        //context.stroke();
 
         //ARRAYS
         let years = [];
@@ -65,6 +65,11 @@
         }
         */
 
+        //recorrer arrays con foreach
+        menu.forEach(item => {
+            console.log("esto esta dentro del foreach "+item);
+        });
+
         //la solucion para esto es
         for (let i = 0; i < menu.length; i++) {
             console.log(menu[i]);
@@ -75,6 +80,86 @@
             years.push(2023 + i);
         }
         console.log(years);
+
+        //dibujemos con los bucles 
+        /*
+        for (let i = 0; i < 5; i++) {
+            let ancho = 60;
+            let alto = 60;
+            let distancia = 20;
+            let x = 100 + (ancho + distancia) * i;
+            let y = 100;
+
+            context.beginPath();
+            context.rect(x, y, ancho, alto);
+            context.stroke();
+        }
+        */
+        //ahora dibujemos una linea diagonal de cuadrados
+        /*
+        for (let i = 0; i < 5; i++) {
+            for (let j = 0; j < 5; j++) {
+                let ancho = 60;
+                let alto = 60;
+                let distancia = 20;
+                let x = 100 + (ancho + distancia) * i;
+                let y = 100 + (alto + distancia) * i;
+
+                context.beginPath();    
+                context.rect(x, y, ancho, alto);
+                context.stroke();   
+            }
+        }
+        */
+        //voy a organizar el for sacando las variables 
+        const ancho = 60;
+        const alto = 60;
+        const distancia = 20;
+        let x, y;
+        //ahora dibujemos varias lineas de cuadrados 
+        for (let i = 0; i < 5; i++) {
+            for (let j = 0; j < 5; j++) {
+                x = 100 + (ancho + distancia) * i;
+                y = 100 + (alto + distancia) * j;
+
+                context.beginPath();    
+                context.rect(x, y, ancho, alto);
+                context.stroke();
+                
+                /*
+                //hacemos cuadrados dentro de estos
+                context.beginPath();
+                /*Consejo 
+                las variables x y son las cordenadas y siempre van a ser la mitad del ancho y del alto si lo queremos centrado
+                context.rect(x + 10, y + 10, ancho - 20, alto - 20);
+                context.stroke();*/
+
+                //CONDICIONALES
+
+                /*para que nos dibuje solo en todos menos en los primeros y ultimos de cada linea
+                if (i > 0 && i < 4) {
+                    context.beginPath();
+                    context.rect(x + 10, y + 10, ancho - 20, alto - 20);
+                    context.stroke();
+                }*/
+
+                //queremos que nos dibuje en una ubicacion random los cuadraditos 
+                if (Math.random()> 0.5) {
+                    context.beginPath();
+                    context.rect(x + 10, y + 10, ancho - 20, alto - 20);
+                    context.stroke();
+                }
+            }
+        }
+
+        //no siempre c declaran las variables como let tambien podemos usar const 
+        /*La diferencia radica en q:
+        const: son constantes son variables que sabemos que no vamos a cambiar 
+        let: son variables estas si las vamos a cambiar a medida que avance el codigo
+        un ejemplo podria ser:
+        */
+       const gravedad = 9.81; //sabemos que la gravedad siempre va a ser la misma
+       let velocidad = 0.0; //esta variable si la vamos a cambiar a medida que avancemos en nuestro codigo
     </script>
 </body>
 </html>
