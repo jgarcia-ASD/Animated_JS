@@ -1,4 +1,6 @@
 const canvasSketch = require('canvas-sketch');
+const math = require ('canvas-sketch-util/math');
+const random = require ('canvas-sketch-util/random');
 
 const settings = {
   dimensions: [ 1080, 1080 ]
@@ -7,6 +9,11 @@ const settings = {
 //hacemos una funcion para convertir los radianes a grados y facilitarnos la codificacion
 const agrados = (grados) => {
   return grados / 180 * Math.PI;
+}
+
+//hacemos una funcino para hacer lieneas de grosor aleatorio
+const lrandom = (min, max) => {
+  return Math.random() * (max - min) + min;
 }
 
 const sketch = () => {
@@ -26,7 +33,7 @@ const sketch = () => {
     const radio = width * 0.3;
 
     for (let i = 0; i < num; i++) {
-      const slice = agrados(360 / num);
+      const slice = math.degToRad(360 / num);
       const angulo = slice * i;
 
       x = cx + radio * Math.sin(angulo);
@@ -36,6 +43,7 @@ const sketch = () => {
       context.save();
       context.translate(x, y);
       context.rotate(-angulo);
+      context.scale(random.range(1, 3), 1);
 
       context.beginPath();
       context.rect(-w * 0.5, -h * 0.5, w, h);
