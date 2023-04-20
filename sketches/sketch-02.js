@@ -2,30 +2,36 @@ const canvasSketch = require('canvas-sketch');
 const math = require ('canvas-sketch-util/math');
 const random = require ('canvas-sketch-util/random');
 
+const q = true
+const w = false
 const settings = {
-  dimensions: [ 1080, 1080 ]
+  dimensions: [ 1080, 1080 ],
+  animate: q
 };
 
 
 const sketch = () => {
-  return ({ context, width, height }) => {
+  
+  return ({ context, width, height}) => {
     context.fillStyle = 'black';
     context.fillRect(0, 0, width, height);
-
+    
+    
     context.fillStyle = 'black';
 
     const cx = width * 0.5;
     const cy = height * 0.5;
     const w = width * 0.01;
     const h = height * 0.1;
-    let x, y, g;
+    let x, y;
 
-    const num = 40;
+    const num = 600;
     const radio = width * 0.3;
 
     for (let i = 0; i < num; i++) {
       const slice = math.degToRad(360 / num);
-      const angulo = slice * i;
+      const angulo = (slice * i);
+      console.log('este es el angulo'+ angulo)
 
       x = cx + radio * Math.sin(angulo);
       y = cy + radio * Math.cos(angulo);

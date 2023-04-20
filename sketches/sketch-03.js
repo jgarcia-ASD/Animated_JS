@@ -4,7 +4,7 @@ const math = require('canvas-sketch-util/math');
 
 
 const settings = {
-  dimensions: [ 1080, 1080 ],
+  dimensions: [ 720, 1520 ],
   animate: true
 };
 
@@ -26,7 +26,7 @@ const sketch = ({ width, height }) => {
     
   }
   return ({ context, width, height }) => {
-    context.fillStyle = 'white';
+    context.fillStyle = 'black';
     context.fillRect(0, 0, width, height);
 
     for (let i = 0; i < agentes.length; i++) {
@@ -45,6 +45,7 @@ const sketch = ({ width, height }) => {
         context.beginPath();
         context.moveTo(Agente.pos.x, Agente.pos.y);
         context.lineTo(otros.pos.x, otros.pos.y);
+        context.strokeStyle = 'purple';
         context.stroke();
         
       }
