@@ -1,5 +1,6 @@
 const canvasSketch = require('canvas-sketch');
 const random = require('canvas-sketch-util/random');
+const math = require('canvas-sketch-util/math');
 
 
 const settings = {
@@ -21,17 +22,39 @@ const sketch = ({ width, height }) => {
     const x = random.range(0, width);
     const y = random.range(0, height)
 
-    agentes.push(new Angente(x,y))
+    agentes.push(new Agente(x,y))
     
   }
   return ({ context, width, height }) => {
     context.fillStyle = 'white';
     context.fillRect(0, 0, width, height);
 
-    agentes.forEach(Angente => {
-      Angente.update();
-      Angente.draw(context);
-      Angente.limites(width, height);
+    for (let i = 0; i < agentes.length; i++) {
+      const Agente = agentes[i];
+
+      for (let j = i + 1; j < agentes.length; j++) {
+        const otros = agentes[j];
+
+        const dist = Agente.pos.Distancias(otros.pos);
+
+        if (dist > 200) continue; //esto significa que si cumple realice las siguientes lineas de codigo si no c cumple que c detenga
+
+        context.lineWidth = math.mapRange(dist, 0, 200, 8, 1);
+
+        //pintamos lineas de un punto a otro
+        context.beginPath();
+        context.moveTo(Agente.pos.x, Agente.pos.y);
+        context.lineTo(otros.pos.x, otros.pos.y);
+        context.stroke();
+        
+      }
+      
+    }
+
+    agentes.forEach(Agente => {
+      Agente.update();
+      Agente.draw(context);
+      Agente.limites(width, height);
     });
   };
 };
@@ -43,9 +66,15 @@ class Vector {
     this.x = x;
     this.y = y;
   }
+
+  Distancias(v){
+    const dx = this.x - v.x;
+    const dy = this.y - v.y;
+    return Math.sqrt(dx * dx + dy * dy);
+  }
 }
 
-class Angente {
+class Agente {
   constructor(x, y){
     this.pos = new Vector(x,y);
     this.vel = new Vector(random.range(-1, 1), random.range(-1, 1));
