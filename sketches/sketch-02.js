@@ -9,7 +9,7 @@ const settings = {
 
 const sketch = () => {
   return ({ context, width, height }) => {
-    context.fillStyle = 'white';
+    context.fillStyle = 'black';
     context.fillRect(0, 0, width, height);
 
     context.fillStyle = 'black';
@@ -18,7 +18,7 @@ const sketch = () => {
     const cy = height * 0.5;
     const w = width * 0.01;
     const h = height * 0.1;
-    let x, y;
+    let x, y, g;
 
     const num = 40;
     const radio = width * 0.3;
@@ -37,6 +37,7 @@ const sketch = () => {
       context.scale(random.range(0.3, 2), random.range(0.2, 0.5));
 
       context.beginPath();
+      context.fillStyle = '#B00C0C';
       context.rect(-w * 0.20, random.range(0, -h * 0.20), w, h);
       context.fill();
       //asi evitamos que se nos acumulen las tranformaciones
@@ -49,7 +50,8 @@ const sketch = () => {
       context.lineWidth = random.range(5, 20);
 
       context.beginPath();
-      context.arc(0, 0, radio * random.range(0.001, 1.5),slice * random.range(1, -8), slice * random.range(1, 5));
+      context.strokeStyle = '#550606';
+      context.arc(w * 0.50, h * 0.50, radio * random.range(0.001, 1.5),slice * random.range(1, -8), slice * random.range(1, 5));
       context.stroke();
       context.restore();
       
