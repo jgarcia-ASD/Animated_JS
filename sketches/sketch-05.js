@@ -9,7 +9,7 @@ const settings = {
 
 let manager;
 
-let text = 'A';
+let text = '._.';
 let fontSize = 1200;
 let fontFamily = 'serif';
 
@@ -43,7 +43,7 @@ const sketch = ({ context, width, height }) => {
 		typeContext.fillRect(0, 0, cols, rows);
 
     //hacemos que nuestra letra sea visible
-    fontSize = cols * 1.2;
+    fontSize = cols * 1;
 
 		//nueva fucnion para dibujar una letra adaptada a nuestro boceto
 		typeContext.fillStyle = 'white';
