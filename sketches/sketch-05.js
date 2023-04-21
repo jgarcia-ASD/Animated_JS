@@ -1,7 +1,10 @@
 const canvasSketch = require('canvas-sketch');
+const random = require('canvas-sketch-util/random');
+const Tweakpane = require('tweakpane');
 
 const settings = {
-	dimensions: [ 1080, 1080 ]
+	dimensions: [ 1080, 1080 ],
+	animate: true,
 };
 
 let manager;
@@ -13,6 +16,15 @@ let fontFamily = 'serif';
 //creamos un canvas el cual solo nos va a comparar pixeles
 const typeCanvas = document.createElement('canvas');
 const typeContext = typeCanvas.getContext('2d');
+
+const parametros = {
+	ubicacionx: 0.5,
+	ubicaciony: 0.5,
+	tamaño: 2,
+	colorl: 'rgb(255, 255, 255)',
+	colorf: 'rgb(0, 0, 0)',
+
+}
 
 const sketch = ({ context, width, height }) => {
 	//asignamos un tamaño a nuestro pixel
@@ -27,11 +39,11 @@ const sketch = ({ context, width, height }) => {
 	typeCanvas.height = rows;
 
 	return ({ context, width, height }) => {
-		typeContext.fillStyle = 'black';
+		typeContext.fillStyle = parametros.colorf;
 		typeContext.fillRect(0, 0, cols, rows);
 
     //hacemos que nuestra letra sea visible
-    fontSize = cols;
+    fontSize = cols * 1.2;
 
 		//nueva fucnion para dibujar una letra adaptada a nuestro boceto
 		typeContext.fillStyle = 'white';
@@ -49,8 +61,8 @@ const sketch = ({ context, width, height }) => {
 		const mh = metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescent;
 
 		//creamos las variables de x y y para encontrar la mitad de nuestro tablero
-		const tx = (cols - mw) * 0.5 - mx;
-		const ty = (rows - mh) * 0.5 - my;
+		const tx = (cols - mw) * parametros.ubicacionx - mx;
+		const ty = (rows - mh) * parametros.ubicaciony - my;
 
 		typeContext.save();
 		//la centramos verticalmente ------
@@ -71,6 +83,14 @@ const sketch = ({ context, width, height }) => {
 		//dibujamos nuestro canvas
 		//context.drawImage(typeCanvas, 0, 0);
 
+    //ponemos el fondo negro
+    context.fillStyle = parametros.colorf;
+    context.fillRect(0, 0, width, height);
+
+    //alineamos los guiones osea el tercer valor en la funcio al centro del pixel
+    context.textBaseline = 'middle';
+		context.textAlign = 'center'; 
+
     //leemos la matriz que creamos ImageData
     for (let i = 0; i < numCells; i++) {
       //recorre todo el indice
@@ -87,20 +107,62 @@ const sketch = ({ context, width, height }) => {
       const b = typeData[i * 4 + 2];
       const a = typeData[i * 4 + 3];
 
+      //queremos que los glifos sean distintos segun la intensidad del color entonces hacemos
+      const glyph = getGlyph(r);
+
+      //agrandamos nuestro texto de glifos
+      context.font = `${cell * parametros.tamaño}px ${fontFamily}`;
+
       //asignamos los estilos usando el r g b a declarado anteriormente
-      context.fillStyle = `rgb(${r}, ${g}, ${b})`;
+      context.fillStyle = parametros.colorl;
+      //if (Math.random() < 0.1) context.font = `${cell * 6}px ${fontFamily}`;
 
       //dibujamos un cuadro para cada una de las celdas
       context.save();
       context.translate(x, y);
       context.translate(cell *0.5, cell * 0.5);
+      /*esto era para dibujar cuadrados o cirulos ahora vamos a dibujar letras
       //context.fillRect(0, 0, cell, cell);
       context.beginPath();
       context.arc(0, 0, cell * 0.5, 0, Math.PI * 2);
-      context.fill();
+      context.fill();*/
+
+      //para dibujar letras hacemos lo siguiente
+      context.fillText(glyph, 0, 0);
+
       context.restore();
+
+      
     }
 	};
+};
+
+const createPane = () => {
+	const pane = new Tweakpane.Pane();
+	let folder;
+	//hacemos un objeto del panel a nuestro gusto
+	folder = pane.addFolder({ title: 'Editar'})
+	folder.addInput(parametros, 'ubicacionx', {min:-3, max:3});
+	folder.addInput(parametros, 'ubicaciony', {min:-3, max:3});
+	folder.addInput(parametros, 'colorl');
+	folder.addInput(parametros, 'tamaño', {min:1, max:5});
+	//folder.addInput(parametros, 'relleno', {option: {Palito_ñ: 'a', Llaves: 'p', Uno:'o'}});
+
+}
+
+
+//esta es la funcion que m va a asignar el color de los glifos
+const getGlyph = (v) => {
+	if (v < 50) return '';
+	if (v < 100) return '.';
+	if (v < 150) return '|';
+	if (v < 200) return '+';
+
+  //la funcion split convierte los strings en arrays
+  const glyphs = `~  ~`.split('');
+
+  //la funcion pick agarra un valor aleatorio de un array
+  return random.pick(glyphs);
 };
 
 //funcion para que me lea las teclas que presione
@@ -116,6 +178,8 @@ const start = async () => {
 	manager = await canvasSketch(sketch, settings);
 };
 
+
+createPane();
 //iniciar la promesa
 start();
 

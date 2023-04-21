@@ -1,0 +1,21 @@
+{
+  "name": "lazify",
+  "version": "1.0.0",
+  "description": "convenient wrapper for lazy promises",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/nathan7/lazify.git"
+  },
+  "keywords": [
+    "lazy",
+    "promise",
+    "utility"
+  ],
+  "author": "Nathan Zadoks",
+  "license": "MIT",
+  "dependencies": {
+    "lazy-promise": "~1.0.0",
+    "is-promise": "~1.0.0"
+  }
+}
