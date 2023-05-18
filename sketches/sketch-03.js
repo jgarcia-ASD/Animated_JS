@@ -4,7 +4,7 @@ const math = require('canvas-sketch-util/math');
 
 
 const settings = {
-  dimensions: [ 720, 1520 ],
+  dimensions: [  1600 , 500 ],
   animate: true
 };
 
@@ -26,7 +26,7 @@ const sketch = ({ width, height }) => {
     
   }
   return ({ context, width, height }) => {
-    context.fillStyle = 'black';
+    context.fillStyle = 'blac';
     context.fillRect(0, 0, width, height);
 
     for (let i = 0; i < agentes.length; i++) {
@@ -37,7 +37,7 @@ const sketch = ({ width, height }) => {
 
         const dist = Agente.pos.Distancias(otros.pos);
 
-        if (dist > 200) continue; //esto significa que si cumple realice las siguientes lineas de codigo si no c cumple que c detenga
+        if (dist > 100) continue; //esto significa que si cumple realice las siguientes lineas de codigo si no c cumple que c detenga
 
         context.lineWidth = math.mapRange(dist, 0, 200, 8, 1);
 
@@ -45,7 +45,7 @@ const sketch = ({ width, height }) => {
         context.beginPath();
         context.moveTo(Agente.pos.x, Agente.pos.y);
         context.lineTo(otros.pos.x, otros.pos.y);
-        context.strokeStyle = 'purple';
+        context.strokeStyle = 'pink';
         context.stroke();
         
       }
@@ -79,7 +79,7 @@ class Agente {
   constructor(x, y){
     this.pos = new Vector(x,y);
     this.vel = new Vector(random.range(-1, 1), random.range(-1, 1));
-    this.radio = random.range(4, 12);
+    this.radio = random.range(4, 10);
   }
 
 

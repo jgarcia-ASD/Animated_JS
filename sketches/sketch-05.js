@@ -55,7 +55,7 @@ const sketch = ({ context, width, height }) => {
 
 		//usamos una funcion llamada measuretext para traer variables mucho mas precisas y ser mas preciso al momento de medir letras
 		const metrics = typeContext.measureText(text);
-		const mx = metrics.actualBoundingBoxLeft * -1;//eje x
+		const mx = metrics.actualBoupndingBoxLeft * -1;//eje x
 		const my = metrics.actualBoundingBoxAscent * -1;//eje y
 		const mw = metrics.actualBoundingBoxLeft + metrics.actualBoundingBoxRight;
 		const mh = metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescent;
@@ -159,7 +159,7 @@ const getGlyph = (v) => {
 	if (v < 200) return '+';
 
   //la funcion split convierte los strings en arrays
-  const glyphs = `~  ~`.split('');
+  const glyphs = `~  .`.split('');
 
   //la funcion pick agarra un valor aleatorio de un array
   return random.pick(glyphs);
